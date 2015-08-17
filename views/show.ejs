@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Quoting Dojo Redux - Mongoose</title>
+	<!-- <link rel="stylesheet" href="/stylesheets/style.css" /> -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			//this triggers the connection even in our server!
+			var socket = io.connect();
+			socket.on('mongoose_selected', function (data) {
+				console.log(data);
+				//console.log(data.users[0].name);
+				for (user in data){
+				 $('ul#mongoose-list').append('<li><p>Name</p><h3>'+ data[user].name +'</h3><p>Age</p><h3>' + data[user].age + '</h3><p>Favorite Color</p><h3>' + data[user].favorite_color + '</h3><a href="/mongooses/' + data[user]._id + '/edit" class="btn btn-primary">Edit Mongoose</a></li>');
+				}
+				// socket.emit('update_log', { msg : '<li>' + data.response + '</li>' })
+			});
+		})
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<ul id="mongoose-list">
+			
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
